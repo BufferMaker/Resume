@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="module">
         <!-- 编辑专业技能 -->
         <el-popover ref="editProfessionalSkills" placement="bottom" width="500" trigger="click" @hide="endEditProfessionalSkills">
             <div>
@@ -12,7 +12,7 @@
                         <el-table-column label="内容" align="center" min-width="299">
                             <template slot-scope="scope">
                                 <span v-show="!scope.row.isEditable">{{scope.row.info}}</span>
-                                <el-input placeholder="技能描述" v-model="scope.row.info" size="mini" v-focus="{ cls: 'el-input', tag: 'input', foc: !!scope.row.foc }" @focus="scope.row.foc = true"  @blur="scope.row.foc = false" @keyup.enter.native="scope.row.isEditable = false" v-show="scope.row.isEditable"></el-input>
+                                <el-input placeholder="技能描述" v-model="scope.row.info" size="mini" v-focus="{ cls: 'el-input', tag: 'input', foc: !!scope.row.foc }" @focus="scope.row.foc = true"  @blur="scope.row.foc = false" @keyup.enter.native="handleEditDescribe(scope.$index, scope.row)" v-show="scope.row.isEditable"></el-input>
                             </template>
                         </el-table-column>
                         <el-table-column label="操作" align="center" width="150">
@@ -30,7 +30,7 @@
 
         <!-- 专业技能 -->
         <div v-popover:editProfessionalSkills>
-            <h2><i></i>专业技能</h2>
+            <h2 class="title"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-jineng"></use></svg>专业技能</h2>
             <ul v-for="(item, index) in ProfessionalSkills" :key="index">
                 <li>{{item.info}}</li>
             </ul>

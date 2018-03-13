@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="module">
         <!-- 编辑教育背景 -->
         <el-popover ref="editEducation" placement="bottom" width="400" trigger="click">
             <el-row>
@@ -19,7 +19,7 @@
 
         <!-- 教育经历 -->
         <div v-popover:editEducation>
-            <h2><i></i>教育背景</h2>
+            <h2 class="title"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-xueli"></use></svg>教育背景</h2>
             <p><span>{{editEducation.time.join(' 至 ')}}</span><span>{{editEducation.school}}</span><span>{{editEducation.education}}</span></p>
         </div>
         <!-- End教育经历 -->

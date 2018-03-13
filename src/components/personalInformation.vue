@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="module">
         <!-- 编辑个人信息 -->
         <el-popover ref="editPersonalInformation" placement="bottom" width="500" trigger="click" @hide="endEditPersonalInformation">
             <div>
@@ -12,7 +12,7 @@
                         <el-table-column label="标签" align="center" min-width="100">
                             <template slot-scope="scope">
                                 <span v-show="!scope.row.isEditable">{{scope.row.label}}</span>
-                                <el-input placeholder="标签" v-model="scope.row.label" size="mini" v-focus="{ cls: 'el-input', tag: 'input', foc: !!scope.row.foc }" @focus="scope.row.foc = true"  @blur="scope.row.foc = false" @keyup.enter.native="scope.row.isEditable = false" v-show="scope.row.isEditable"></el-input>
+                                <el-input placeholder="标签" v-model="scope.row.label" size="mini" v-focus="{ cls: 'el-input', tag: 'input', foc: !!scope.row.foc }" @focus="scope.row.foc = true"  @blur="scope.row.foc = false" @keyup.enter.native="handleEditDescribe(scope.$index, scope.row)" v-show="scope.row.isEditable"></el-input>
                             </template>
                         </el-table-column>
                         <el-table-column label="内容" align="center" min-width="199">
@@ -36,7 +36,7 @@
 
         <!-- 个人信息 -->
         <div v-popover:editPersonalInformation>
-            <h2><i></i>个人信息</h2>
+            <h2 class="title"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-techang"></use></svg>个人信息</h2>
             <ul v-for="(item, index) in PersonalInformation" :key="index">
                 <li>{{item.label}}：{{item.info}}</li>
             </ul>

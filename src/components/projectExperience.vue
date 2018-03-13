@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="module">
         <!-- 编辑项目经验 -->
         <el-popover ref="editProjectExperience" placement="bottom" width="500" trigger="click" @hide="endEditProjectExperience">
             <el-button style="margin-bottom: 2px;" size="small" @click="addTab(ProjectExperienceValue)">添加项目经验</el-button>
@@ -7,7 +7,7 @@
                 <el-tab-pane v-for="(item, index) in ProjectExperience" :key="item.name" :label="item.title" :name="item.name">
                     <el-row>
                         <el-col :span="3">时间：</el-col>
-                        <el-col :span="21"><el-date-picker v-model="ProjectExperience[index].time" value-format="yyyy-MM-dd" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker></el-col>
+                        <el-col :span="21"><el-date-picker v-model="ProjectExperience[index].time" value-format="yyyy-MM" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker></el-col>
                     </el-row>
                     <el-row>
                         <el-col :span="3">项目：</el-col>
@@ -27,7 +27,7 @@
                                 <el-table-column label="内容" align="center" min-width="299">
                                     <template slot-scope="scope">
                                         <span v-show="!scope.row.isEditable">{{scope.row.info}}</span>
-                                        <el-input placeholder="项目描述" v-model="scope.row.info" size="mini" v-focus="{ cls: 'el-input', tag: 'input', foc: !!scope.row.foc }" @focus="scope.row.foc = true"  @blur="scope.row.foc = false" @keyup.enter.native="scope.row.isEditable = false" v-show="scope.row.isEditable"></el-input>
+                                        <el-input placeholder="项目描述" v-model="scope.row.info" size="mini" v-focus="{ cls: 'el-input', tag: 'input', foc: !!scope.row.foc }" @focus="scope.row.foc = true"  @blur="scope.row.foc = false" @keyup.enter.native="handleEditDescribe(scope.$index, scope.row)" v-show="scope.row.isEditable"></el-input>
                                     </template>
                                 </el-table-column>
                                 <el-table-column label="操作" align="center" width="150">
@@ -46,11 +46,11 @@
         <!-- End 编辑项目经验 -->
 
         <!-- 项目经验 -->
-        <div v-popover:editProjectExperience>
-            <h2><i></i>项目经验</h2>
-            <ul v-for="item in ProjectExperience" :key="item.name">
-                <li><span>{{item.time && item.time.join(' 至 ')}}</span><span>{{item.project}}</span><span>{{item.responsibility}}</span></li>
-                <li v-for="(_describe, index) in item.describe" :key="index">{{_describe.info}}</li>
+        <div class="project-experience" v-popover:editProjectExperience>
+            <h2 class="title"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-xiangmu"></use></svg>项目经验</h2>
+            <ul class="container" v-for="item in ProjectExperience" :key="item.name">
+                <li class="container-title"><i class="el-icon-star-on"></i><span>{{item.time && item.time.join(' 至 ')}}</span><span>{{item.project}}</span><span>{{item.responsibility}}</span></li>
+                <li class="container-describe" v-for="(_describe, index) in item.describe" :key="index"><i class="el-icon-caret-right"></i>{{_describe.info}}</li>
             </ul>
         </div>
         <!-- End 项目经验 -->
@@ -134,7 +134,7 @@ export default {
         this.cacheRows[this.ProjectExperienceValue - 1] = Array.isArray(this.cacheRows[this.ProjectExperienceValue - 1]) ? this.cacheRows[this.ProjectExperienceValue - 1] : []
         // 缓存操作前数据
         this.cacheRows[this.ProjectExperienceValue - 1][index] = JSON.parse(JSON.stringify(row))
-        //    自动获得焦点
+        // 自动获得焦点
         row.foc = true
       } else {
         // 取消焦点
@@ -172,5 +172,42 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+  .project-experience{
+    text-align: left;
+    width: 100%;
 
+    .container{
+      padding: 0;
+      margin: 0;
+      list-style: none;
+
+      .container-title{
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0;
+
+        i{
+          padding-right: 0.2rem;
+        }
+
+        span{
+          flex: 1;
+
+          &:nth-child(3){
+            text-align: center;
+          }
+          &:nth-child(4){
+            text-align: right;
+          }
+
+        }
+      }
+
+      .container-describe{
+        padding: 0.5rem 0 0.5rem 1rem;
+        word-break: break-all;
+      }
+    }
+    
+  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="module">
         <!-- 编辑自我评价 -->
         <el-popover ref="editEvaluate" placement="bottom" width="500" trigger="click" @hide="endEditEvaluate">
             <div>
@@ -30,7 +30,7 @@
 
         <!-- 自我评价 -->
         <div v-popover:editEvaluate>
-            <h2><i></i>自我评价</h2>
+            <h2 class="title"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chuangzaoli"></use></svg>自我评价</h2>
             <ul v-for="(item, index) in Evaluate" :key="index">
                 <li>{{item.info}}</li>
             </ul>

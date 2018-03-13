@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wanner-job">
         <!-- 编辑职位信息 -->
         <el-popover ref="editJob" placement="bottom" width="400" trigger="click">
             <el-tag :key="tag" v-for="tag in wannerJob" closable :disable-transitions="false" @close="handleClose(tag)">{{tag}}</el-tag>
@@ -8,7 +8,7 @@
         </el-popover>
         <!-- End编辑职位信息 -->
 
-        <div class="job-title" v-popover:editJob>求职目标：{{wannerJob.join('、')}}</div>
+        <div v-popover:editJob class="job-title"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qiuzhiyixiang"></use></svg>求职目标：{{wannerJob.join('、')}}</div>
   </div>
 </template>
 <script>
@@ -45,5 +45,14 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.wanner-job{
+    display: inline-block;
+    padding: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 600;
 
+    .job-title{
+        display: flex;
+    }
+}
 </style>
