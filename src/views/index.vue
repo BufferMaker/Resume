@@ -1,9 +1,8 @@
 <template>
     <div>
-        
         <div class="editor-tool" v-show="!printState">
             <div class="tool-container">
-                <el-carousel :autoplay="false" type="card" height="150px" @change="backgroundChange">
+                <el-carousel :autoplay="false" type="card" height="150px" @change="backgroundChange" v-show="template==='designTemplate'">
                   <el-carousel-item v-for="(item, index) in backgroundImage" :key="index"><img :src="item.src"></el-carousel-item>
                 </el-carousel>
                 <el-dropdown trigger="click" @command="handleCommand">
@@ -16,7 +15,7 @@
                     </el-dropdown-menu>
                 </el-dropdown>
                 <el-color-picker v-model="color" show-alpha></el-color-picker>
-                <el-button type="danger" icon="el-icon-delete" size="mini" @click="clearTemplate">清空简历模板</el-button>
+                <el-button type="danger" icon="el-icon-delete" size="mini" @click="clearTemplate"  v-show="template==='designTemplate'">清空简历模板</el-button>
                 <el-button type="success" icon="el-icon-printer" size="mini" @click="handlePrint">打印</el-button>
             </div>
         </div>
@@ -27,15 +26,15 @@
             </ul>
         </div> -->
         
-        <div class="firefox-hack">
-            <ul class="modules-ul" :class="{'is-opend' : isShowTool}" @mouseover="showTool" @mouseout="hideTool" v-show="!printState">
+        <div class="firefox-hack" v-show="!printState && template==='designTemplate'">
+            <ul class="modules-ul" :class="{'is-opend' : isShowTool}" @mouseover="showTool" @mouseout="hideTool">
                 <!-- <draggable v-model="modules" :options="{sort: false}" @start="startDragModule" @end="endDragModule" :move="getMouseCoordinate"> -->
                     <li v-for="(item, index) in modules" :key="index" draggable='true' @dragstart='drag($event, item)'>{{item.name}}</li>
                 <!-- </draggable> -->
             </ul>
         </div>
 
-        <div class="resume-container" @dragover='allowDrop($event)'>
+        <div class="resume-container" :class="{'paper-padding': !printState}"  @dragover='allowDrop($event)'>
             <li :is="template" :img="img" :dragObj="dragObj" ref="template"></li>
         </div>
     </div>
@@ -296,6 +295,9 @@ export default {
         width: 210mm;
         height: 297mm;
         margin: 0 auto;
+    }
+    .paper-padding{
+      margin: 3rem auto;
     }
 
 </style>

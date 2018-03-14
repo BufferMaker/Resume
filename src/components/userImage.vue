@@ -35,8 +35,11 @@ export default {
 }
 </script>
 <style lang="less">
+    .avatar-uploader{
+      border-radius: 50%;
+    }
     .avatar-uploader .el-upload {
-        border: 1px dashed #d9d9d9;
+        border: 2px solid #fff;
         border-radius: 6px;
         cursor: pointer;
         position: relative;

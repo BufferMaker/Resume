@@ -43,6 +43,8 @@ body{
 .module .title{
     display: flex;
     margin: 0;
+    align-items: center;
+    font-size: 1.25rem;
 }
 .module .title > svg{
     margin-right: 0.5rem

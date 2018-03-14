@@ -1,19 +1,21 @@
 <template>
-    <div class="template" :style="{backgroundImage: 'url(' + img + ')'}">
-      <div class="header" @drop="dropHeaer($event)" @dragover='allowDrop($event)'>
-          <li class="module" @dragstart.native='drag($event, item)' draggable="true" :class="'module_' + index" v-for="(item, index) in headerModules" :key="index" :is="item.module"></li>
+    <div class="template">
+      <div class="left">
+          <user-image class="user-image"></user-image>
+          <name class="user-name"></name>
+          <wanner-job class="user-job"></wanner-job>
+          <personal-information></personal-information>
+          <contact-information></contact-information>
+          <awards></awards>
       </div>
-      <div class="container">
-        <div class="container-left" @drop="dropLeft($event)">
-            <draggable  @start="drag = true" @end="drag = false" >
-                <li v-for="(item, index) in leftModules" :key="index" :is="item.module"></li>
-            </draggable>
-        </div>
-        <div class="container-right" @drop="dropRight($event)">
-            <draggable  @start="drag = true" @end="drag = false" >
-            <li v-for="(item, index) in rightModules" :key="index" :is="item.module"></li>
-            </draggable>
-        </div>
+      <div class="right">
+          <draggable>
+            <education></education>
+            <work-experience class="right-module"></work-experience>
+            <project-experience class="right-module"></project-experience>
+            <professional-skills class="right-module"></professional-skills>
+            <evaluate class="right-module"></evaluate>
+          </draggable>
       </div>
 
       <!-- <education></education>
@@ -27,13 +29,16 @@
 <script>
 import userImage from '@/components/userImage.vue'
 import name from '@/components/name.vue'
-import wannerJob from '@/components/wannerJob.vue'
-import education from '@/components/education.vue'
-import workExperience from '@/components/workExperience.vue'
-import projectExperience from '@/components/projectExperience.vue'
-import professionalSkills from '@/components/professionalSkills.vue'
-import personalInformation from '@/components/personalInformation.vue'
-import evaluate from '@/components/evaluate.vue'
+
+import education from '@/views/components/creativeResume/education.vue'
+import evaluate from '@/views/components/creativeResume/evaluate.vue'
+import workExperience from '@/views/components/creativeResume/workExperience.vue'
+import projectExperience from '@/views/components/creativeResume/projectExperience.vue'
+import professionalSkills from '@/views/components/creativeResume/professionalSkills.vue'
+import wannerJob from '@/views/components/creativeResume/wannerJob.vue'
+import personalInformation from '@/views/components/creativeResume/personalInformation.vue'
+import contactInformation from '@/views/components/creativeResume/contactInformation.vue'
+import awards from '@/views/components/creativeResume/awards.vue'
 
 import draggable from 'vuedraggable'
 
@@ -86,7 +91,8 @@ export default {
     professionalSkills,
     personalInformation,
     evaluate,
-
+    contactInformation,
+    awards,
     draggable
   },
   methods: {
@@ -161,51 +167,58 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    .template{
-        height: 100%;
-        background-size: 100% 100%;
+  
+  
+  @left: 39%;
+  @font-size: 16px;
 
-        .header{
-            width: 100%;
-            height: 20%;
-            border: 1px dashed #ccc;
+  .template{
+    display: flex;
+    height: 100%;
+    color: #fff;
+    font-size: @font-size;
+    font-weight: 600;
+    font-family: '宋体';
 
-            position: relative;
-
-            .module{
-                position: absolute;
-            }
-
-        }
-
-        .container{
-            height: 80%;
-            border: 1px dashed #ccc;
-
-            .container-left{
-                width: 70%;
-                height: 100%;
-                float: left;
-                padding: 1rem;
-                border: 1px dashed #ccc;
-            }
-    
-            .container-right{
-                width: 30%;
-                height: 100%;
-                float: left;
-                padding: 1rem;
-                border: 1px dashed #ccc;
-            }
-
-            .module{
-                display: flex;
-            }
-        }
-
-        .header,.container,.container-left,.container-right{
-            box-sizing: border-box;
-        }
+    .avatar-uploader .el-upload{
+      border: 2px solid#ffffff;
     }
+
+    .left, .right{
+      padding: 3rem 0;
+      box-sizing: border-box;
+      float: left;
+    }
+
+    .left{
+      width: @left;
+      height: 100%;
+      border-right: 1px solid #f00;
+      box-shadow: 1px 0px 3px #8a1818;
+      background: linear-gradient(to bottom, #e63667, #f74073 30%, #f52e66 50%, #ec3a74);
+
+      .user-name, .user-job{
+        display: flex;
+        justify-content: center;
+      }     
+
+      .user-name{
+        font-size: 2em;
+        font-weight: 500;
+      }
+    }
+
+    .right{
+      padding-top: 10px;
+      width: 100% - @left;
+      height: 100%;
+      padding-left: 40px;
+      padding-right: 30px;
+      color: #000;
+      background-size: 100% 100%;
+
+    }
+  }
+  
 </style>
 
